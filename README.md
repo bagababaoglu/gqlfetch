@@ -1,5 +1,5 @@
 # gqlfetch
-Introspect GraphQL schema from a user defined server
+Introspect GraphQL schema from a user-defined server. It uses `github.com/suessflorian/gqlfetch` on the background.
 
 ## Flags
 
