@@ -1,0 +1,91 @@
+linters-settings:
+  lll:
+    line-length: 140
+  depguard:
+    rules:
+      prevent_unmaintained_packages:
+        list-mode: lax # allow unless explicitely denied
+        files:
+          - $all
+          - "!$test"
+        deny:
+          - pkg: io/ioutil
+            desc: "replaced by io and os packages since Go 1.16: https://tip.golang.org/doc/go1.16#ioutil"
+
+linters:
+  enable:
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exhaustive
+    - exportloopref
+    - funlen
+    - gci
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - godox
+    - goerr113
+    - gofmt
+    - gofumpt
+    - goheader
+    - goimports
+    - gomnd
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - nestif
+    - nlreturn
+    - nolintlint
+    - prealloc
+    - revive
+    - staticcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+
+run:
+  skip-dirs:
+    - testdata
+
+# added to make gitlab happy
+severity:
+  default-severity: major
+
+  rules:
+    - linters:
+        - godox
+        - godot
+      severity: info
+    - linters:
+        - gomnd
+      severity: minor
+    - linters:
+        - errcheck
+      severity: blocker
+
+issues:
+  exclude:
+    - unnecessary conversion
+    - TLS InsecureSkipVerify set true
+    - Expect WriteFile permissions to be 0600 or less
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+        - nlreturn
+        - funlen
